@@ -1,0 +1,39 @@
+<div class="zeet flex" *ngIf="zeet">
+  <div class="w-[36px] mr-[12px]">
+    <img
+      class="inline-block rounded-full shadow-lg w-full h-[36px]"
+      src="{{zeet.by.profileURL}}"
+    />
+  </div>
+  <div class="flex-1">
+    <div class="flex">
+      <!-- username -->
+      <div class="zeet__username">
+        <a href="https://twitter.com/{{zeet.by.username}}">
+          <span class="font-semibold">{{zeet.by.name}}</span>
+          <span class="ml-1 mr-1">@{{zeet.by.username}}</span>
+        </a>
+      </div>
+      <div class="zeet__time-ago">. {{zeetCreatedAt}}</div>
+    </div>
+    <div>
+      <!-- message -->
+      {{zeet.content}}
+    </div>
+    <div class="flex justify-center">
+      <!-- actions -->
+      <div class="zeet__action-item transition-all zeet__action-item--like mr-10 cursor-pointer hover:text-red-500 flex items-center">
+        <span class="zeet__action-item__icon w-4 h-4 flex justify-center items-center relative bottom-[2px]">
+          <i class="far fa-heart"></i>
+        </span>
+        <span>{{zeet.likes}}</span>
+      </div>
+      <div class="zeet__action-item  transition-all zeet__action-item--comment mr-10 cursor-pointer hover:text-blue-500 flex items-center">
+        <span class="zeet__action-item__icon w-4 h-4 flex justify-center items-center relative bottom-[2px]">
+          <i class="far fa-comment"></i>
+        </span>
+        <span>{{zeet.comments}}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+:host {
+  position: relative;
+  z-index: 1;
+}
+.header {
+  @apply justify-between px-3 flex items-center h-[53px] sticky top-0 z-10 bg-white bg-opacity-80;
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}

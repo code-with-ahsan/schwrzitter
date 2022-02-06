@@ -1,0 +1,28 @@
+:host {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+.zeet {
+  background-color: white;
+  padding: 20px;
+  &__action-item {
+    &--like {
+      &:hover {
+        .zeet__action-item__icon {
+          @apply rounded-full bg-red-500 bg-opacity-10;
+        }
+      }
+    }
+    &--comment {
+      &:hover {
+        .zeet__action-item__icon {
+          @apply rounded-full bg-blue-500 bg-opacity-10;
+        }
+      }
+    }
+    &__icon {
+      font-size: 14px;
+    }
+  }
+}

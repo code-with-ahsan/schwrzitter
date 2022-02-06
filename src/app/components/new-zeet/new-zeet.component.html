@@ -1,0 +1,9 @@
+<form class="flex flex-col mb-2 p-[20px]" (ngSubmit)="onSubmit($event)">
+  <div class="flex">
+    <img class="w-10 h-10 mr-4 inline-block rounded-full shadow-lg" src="https://robohash.org/3e765907b7ea4256eb13399ce0146372?set=set4&bgset=&size=400x400">
+    <input name="message" [(ngModel)]="zeetMessage" class="flex-1 focus:outline-none" placeholder="What's happening!"/>
+  </div>
+  <div class="flex justify-end">
+    <button [disabled]="!zeetMessage" [ngClass]="!zeetMessage ? 'bg-gray-300 hover:bg-gray-300' : ''" type="submit" class="px-2 transition-all text-sm text-center rounded-lg hover:bg-blue-500 text-white bg-blue-400">Zeet</button>
+  </div>
+</form>
