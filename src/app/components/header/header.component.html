@@ -1,5 +1,9 @@
-<div class="header">
-  <div class="header__title ">
+<div class="header flex">
+  <div class="header__title flex-1">
     Home
+  </div>
+  <div class="hover:opacity-70 cursor-pointer" [ngSwitch]="isLoggedIn">
+    <i (click)="login()" *ngSwitchCase="false" class="fa fa-lock"></i>
+    <i (click)="logout()" *ngSwitchCase="true" class="fa fa-unlock"></i>
   </div>
 </div>

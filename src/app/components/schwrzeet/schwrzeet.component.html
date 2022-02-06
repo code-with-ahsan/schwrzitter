@@ -11,7 +11,7 @@
       <div class="zeet__username">
         <a href="https://twitter.com/{{zeet.by.username}}">
           <span class="font-semibold">{{zeet.by.name}}</span>
-          <span class="ml-1 mr-1">@{{zeet.by.username}}</span>
+          <span class="ml-1 mr-1" *ngIf="zeet.by.username">@{{zeet.by.username}}</span>
         </a>
       </div>
       <div class="zeet__time-ago">. {{zeetCreatedAt}}</div>

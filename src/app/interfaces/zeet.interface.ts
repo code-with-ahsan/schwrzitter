@@ -1,11 +1,11 @@
 export interface IZeet {
-  id: number;
+  id: string;
   content: string;
   likes: number;
   comments: number;
   createdAt: string;
   by: {
-    id: number;
+    id: string;
     name: string;
     username: string;
     profileURL: string;

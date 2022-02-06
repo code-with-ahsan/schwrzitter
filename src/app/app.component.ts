@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { formatISO } from 'date-fns';
-import formatDistance from 'date-fns/formatDistance';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Observable } from 'rxjs';
 import { IZeet } from './interfaces/zeet.interface';
+import firebase from 'firebase/compat';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-root',
@@ -10,27 +12,18 @@ import { IZeet } from './interfaces/zeet.interface';
 })
 export class AppComponent {
   title = 'schwrzitter';
-  schwrzeets = new Array(10).fill(0).map(() => {
-    return {
-      id: 2,
-      content: `I'm going to join @AngularAir today to talk about some #Angular stuff and
-      recent projecs I built Join in. It's going to start at 5:45 PM CET.`,
-      likes: 30,
-      comments: 10,
-      createdAt: formatISO(new Date(2022, 1, 3, 12, 45)),
-      by: {
-        id: 2,
-        name: 'Muhammad Ahsan Ayaz',
-        username: 'codewith_ahsan',
-        profileURL:
-          'https://robohash.org/3e765907b7ea4256eb13399ce0146372?set=set4&bgset=&size=400x400',
-      },
-    };
-  });
+  user$: Observable<firebase.User | null>;
+  schwrzeets: IZeet[] = [];
+  constructor(private auth: AngularFireAuth, private afs: AngularFirestore) {
+    this.user$ = this.auth.user;
+    this.afs
+      .collection('zeets', (ref) => ref.orderBy('createdAt', 'desc'))
+      .valueChanges()
+      .subscribe((zeets) => {
+        this.schwrzeets = zeets as IZeet[];
+      });
+  }
   addNewZeet(newZeet: Omit<IZeet, 'id'>) {
-    this.schwrzeets.unshift({
-      ...newZeet,
-      id: Math.random(),
-    });
+    this.afs.collection('zeets').add(newZeet);
   }
 }
