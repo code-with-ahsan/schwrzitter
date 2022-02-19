@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IZeet } from './interfaces/zeet.interface';
+// TODO: // uncomment these
+// import { User, Auth, user } from '@angular/fire/auth';
+// import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +11,18 @@ import { IZeet } from './interfaces/zeet.interface';
 })
 export class AppComponent {
   title = 'schwrzitter';
+  // TODO: // uncomment these
+  // user$: Observable<User | null>;
+
   schwrzeets: IZeet[] = [];
-  constructor() {}
+
+  // TODO: // swap these
+  // constructor(auth: Auth) {
+  //   this.user$ = user(auth);
+  // }
+
+  constructor() {
+  }
   addNewZeet(newZeet: Omit<IZeet, 'id'>) {
     this.schwrzeets.push({
       ...newZeet,

@@ -2,6 +2,10 @@
   <div class="timeline">
     <app-header></app-header>
     <div class="zeets divide-y divide-dashed divide-gray-300">
+      <!-- TODO: // swap these -->
+      <!-- <ng-container *ngIf="user$ | async as user">
+        <app-new-zeet [user]="user" (newZeet)="addNewZeet($event)"></app-new-zeet>
+      </ng-container> -->
       <ng-container>
         <app-new-zeet (newZeet)="addNewZeet($event)"></app-new-zeet>
       </ng-container>

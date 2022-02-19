@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { formatISO } from 'date-fns';
 import { IZeet } from 'src/app/interfaces/zeet.interface';
-import firebase from 'firebase/compat';
+// TODO: uncomment this
+// import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-new-zeet',
@@ -10,7 +11,8 @@ import firebase from 'firebase/compat';
 })
 export class NewZeetComponent implements OnInit {
   @Output() newZeet = new EventEmitter<Omit<IZeet, 'id'>>();
-  @Input() user!: firebase.User;
+  // TODO: uncomment this
+  // @Input() user!: User;
   zeetMessage = '';
   constructor() {}
 
@@ -30,6 +32,13 @@ export class NewZeetComponent implements OnInit {
       likedBy: [],
       commentedBy: [],
       createdAt: formatISO(new Date()),
+      // TODO: swap these
+      // by: {
+      //   id: this.user.uid,
+      //   name: this.user.displayName || this.user.email || '',
+      //   username: '',
+      //   profileURL: this.user.photoURL || '',
+      // },
       by: {
         id: '',
         name: '',
