@@ -22,17 +22,17 @@
     </div>
     <div class="flex justify-center">
       <!-- actions -->
-      <div class="zeet__action-item transition-all zeet__action-item--like mr-10 cursor-pointer hover:text-red-500 flex items-center">
+      <div [class.text-red-500]="zeet.liked" class="zeet__action-item transition-all zeet__action-item--like mr-10 cursor-pointer hover:text-red-500 flex items-center" (click)="zeetLiked.emit(zeet)">
         <span class="zeet__action-item__icon w-4 h-4 flex justify-center items-center relative bottom-[2px]">
-          <i class="far fa-heart"></i>
+          <i class="{{zeet.liked ? 'fas' : 'far' }} fa-heart"></i>
         </span>
-        <span>{{zeet.likes}}</span>
+        <span>{{zeet.likedBy.length}}</span>
       </div>
-      <div class="zeet__action-item  transition-all zeet__action-item--comment mr-10 cursor-pointer hover:text-blue-500 flex items-center">
+      <div class="zeet__action-item  transition-all zeet__action-item--comment mr-10 cursor-pointer hover:text-blue-500 flex items-center"  (click)="commentOnZeet()">
         <span class="zeet__action-item__icon w-4 h-4 flex justify-center items-center relative bottom-[2px]">
           <i class="far fa-comment"></i>
         </span>
-        <span>{{zeet.comments}}</span>
+        <span>{{zeet.commentedBy.length}}</span>
       </div>
     </div>
   </div>

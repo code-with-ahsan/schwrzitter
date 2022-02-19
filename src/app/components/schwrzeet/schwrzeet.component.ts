@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { format, formatDistance, parseISO } from 'date-fns';
 import { IZeet } from 'src/app/interfaces/zeet.interface';
 
@@ -8,7 +8,12 @@ import { IZeet } from 'src/app/interfaces/zeet.interface';
   styleUrls: ['./schwrzeet.component.scss'],
 })
 export class SchwrzeetComponent implements OnInit {
-  @Input() zeet: IZeet | null = null;
+  @Input() zeet!: IZeet;
+  @Output() zeetLiked = new EventEmitter<IZeet>();
+  @Output() zeetCommented = new EventEmitter<{
+    zeet: IZeet;
+    comment: string;
+  }>();
   constructor() {}
 
   get zeetCreatedAt(): string {
@@ -16,6 +21,16 @@ export class SchwrzeetComponent implements OnInit {
       return '';
     }
     return formatDistance(parseISO(this.zeet?.createdAt), new Date());
+  }
+
+  commentOnZeet() {
+    const comment = prompt("What's your comment?");
+    if (comment && comment.trim().length) {
+      this.zeetCommented.emit({
+        zeet: this.zeet,
+        comment,
+      });
+    }
   }
 
   ngOnInit(): void {}

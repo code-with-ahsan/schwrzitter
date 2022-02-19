@@ -27,8 +27,8 @@ export class NewZeetComponent implements OnInit {
     }
     this.newZeet.emit({
       content: this.zeetMessage,
-      likes: 0,
-      comments: 0,
+      likedBy: [],
+      commentedBy: [],
       createdAt: formatISO(new Date()),
       by: {
         id: this.user.uid,
