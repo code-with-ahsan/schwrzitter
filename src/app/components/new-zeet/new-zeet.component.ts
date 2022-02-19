@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { formatISO } from 'date-fns';
 import { IZeet } from 'src/app/interfaces/zeet.interface';
-import firebase from 'firebase/compat';
 
 @Component({
   selector: 'app-new-zeet',
@@ -10,7 +9,7 @@ import firebase from 'firebase/compat';
 })
 export class NewZeetComponent implements OnInit {
   @Output() newZeet = new EventEmitter<Omit<IZeet, 'id'>>();
-  @Input() user!: firebase.User;
+  @Input() user!: any;
   zeetMessage = '';
   constructor() {}
 
