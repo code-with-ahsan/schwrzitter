@@ -1,15 +1,24 @@
 import { Component } from '@angular/core';
 import { IZeet } from './interfaces/zeet.interface';
 import { User, Auth, user } from '@angular/fire/auth';
-// TODO: swap these
-// import { collection, onSnapshot, query } from '@angular/fire/firestore';
-import { collection} from '@angular/fire/firestore';
+import {
+  collection,
+  collectionChanges,
+  addDoc,
+  // TODO: uncomment these
+  // doc,
+  // getDoc,
+  // updateDoc,
+  // setDoc,
+  // deleteDoc,
+  getFirestore,
+  orderBy,
+  query,
+  CollectionReference,
+  DocumentChange,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs/internal/Observable';
-import { addDoc, getFirestore } from 'firebase/firestore';
 import { take } from 'rxjs/operators';
-// TODO: uncomment these
-import { getAuth } from 'firebase/auth';
-import { collectionChanges } from 'rxfire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -24,25 +33,56 @@ export class AppComponent {
 
   constructor(auth: Auth) {
     this.user$ = user(auth);
-    // TODO: uncomment this
-    // this.getZeets();
+    this.getZeets();
   }
 
-  // TODO: uncomment this
-  // getZeets() {
-  //   onSnapshot(collection(getFirestore(), 'zeets'), async (zeets) => {
-  //     const user = await this.getUser();
-  //     this.schwrzeets = zeets.docs.map((doc) => {
-  //       const data = doc.data() as IZeet;
-  //       const zeet = {
-  //         ...data,
-  //         id: doc.id,
-  //         liked: !!user && !!data.likedBy.includes(user.uid),
-  //       };
-  //       return zeet;
-  //     }) as IZeet[];
-  //   });
-  // }
+  async getZeets() {
+    const user = await this.getUser();
+    collectionChanges<IZeet>(
+      query<IZeet>(
+        collection(getFirestore(), 'zeets') as CollectionReference<IZeet>,
+        orderBy('createdAt', 'desc')
+      )
+    ).subscribe((zeets) => {
+      console.log(zeets);
+      zeets.map((snapshot) => {
+        this.onZeetSnapshot(snapshot, user);
+      });
+    });
+  }
+
+  onZeetSnapshot(change: DocumentChange<IZeet>, user: User | null) {
+    const data = change.doc.data() as IZeet;
+    switch (change.type) {
+      case 'added':
+        const zeet = {
+          ...data,
+          id: change.doc.id,
+          liked: !!user && !!data.likedBy.includes(user.uid),
+        };
+        this.schwrzeets.splice(change.newIndex, 0, zeet);
+        break;
+      case 'removed':
+        this.schwrzeets.splice(change.oldIndex, 1);
+        break;
+      case 'modified':
+        if (change.newIndex === change.oldIndex) {
+          this.schwrzeets[change.oldIndex] = {
+            ...data,
+            id: change.doc.id,
+            liked: !!user && !!data.likedBy.includes(user.uid),
+          };
+        } else {
+          this.schwrzeets.splice(change.oldIndex, 1);
+          this.schwrzeets.splice(change.newIndex, 0, {
+            ...data,
+            id: change.doc.id,
+            liked: !!user && !!data.likedBy.includes(user.uid),
+          });
+        }
+        break;
+    }
+  }
 
   async getUser(): Promise<User | null> {
     const user = await this.user$.pipe(take(1)).toPromise();
@@ -50,18 +90,36 @@ export class AppComponent {
   }
 
   addNewZeet(newZeet: Omit<IZeet, 'id'>) {
-    // TODO: 1 - Add Zeet
     addDoc(collection(getFirestore(), 'zeets'), newZeet);
   }
 
   async onZeetLike(zeet: IZeet) {
-    zeet.liked = !zeet.liked;
-    if (zeet.liked) {
-      zeet.likedBy.push(Date.now().toString());
-    } else {
-      zeet.likedBy.length = 0;
+    const user = await this.getUser();
+    if (!user) {
+      return;
     }
-    console.log(zeet);
+    // TODO: uncomment this
+    // const likeDocRef = doc(
+    //   getFirestore(),
+    //   `zeets/${zeet.id}/likes/${user.uid}`
+    // );
+    // const document = await getDoc(likeDocRef);
+    // const docExists = document.exists();
+    // if (docExists) {
+    //   zeet.likedBy = zeet.likedBy.filter((id) => id !== user.uid);
+    //   await deleteDoc(likeDocRef);
+    // } else {
+    //   zeet.likedBy.push(user.uid);
+    //   await setDoc(likeDocRef, {
+    //     id: user.uid,
+    //     displayName: user.displayName,
+    //     photoURL: user.photoURL,
+    //   });
+    // }
+    // const docRef = doc(getFirestore(), `zeets/${zeet.id}`);
+    // updateDoc(docRef, {
+    //   ...zeet,
+    // });
   }
 
   async onZeetComment(event: { zeet: IZeet; comment: string }) {
