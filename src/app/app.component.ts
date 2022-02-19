@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
 import { IZeet } from './interfaces/zeet.interface';
-// TODO: // uncomment these
-// import { User, Auth, user } from '@angular/fire/auth';
-// import { Observable } from 'rxjs/internal/Observable';
+import { User, Auth, user } from '@angular/fire/auth';
+// TODO: swap these
+// import { collection, onSnapshot, query } from '@angular/fire/firestore';
+import { collection} from '@angular/fire/firestore';
+import { Observable } from 'rxjs/internal/Observable';
+import { addDoc, getFirestore } from 'firebase/firestore';
+import { take } from 'rxjs/operators';
+// TODO: uncomment these
+import { getAuth } from 'firebase/auth';
+import { collectionChanges } from 'rxfire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -11,23 +18,40 @@ import { IZeet } from './interfaces/zeet.interface';
 })
 export class AppComponent {
   title = 'schwrzitter';
-  // TODO: // uncomment these
-  // user$: Observable<User | null>;
+  user$: Observable<User | null>;
 
   schwrzeets: IZeet[] = [];
 
-  // TODO: // swap these
-  // constructor(auth: Auth) {
-  //   this.user$ = user(auth);
+  constructor(auth: Auth) {
+    this.user$ = user(auth);
+    // TODO: uncomment this
+    // this.getZeets();
+  }
+
+  // TODO: uncomment this
+  // getZeets() {
+  //   onSnapshot(collection(getFirestore(), 'zeets'), async (zeets) => {
+  //     const user = await this.getUser();
+  //     this.schwrzeets = zeets.docs.map((doc) => {
+  //       const data = doc.data() as IZeet;
+  //       const zeet = {
+  //         ...data,
+  //         id: doc.id,
+  //         liked: !!user && !!data.likedBy.includes(user.uid),
+  //       };
+  //       return zeet;
+  //     }) as IZeet[];
+  //   });
   // }
 
-  constructor() {
+  async getUser(): Promise<User | null> {
+    const user = await this.user$.pipe(take(1)).toPromise();
+    return user || null;
   }
+
   addNewZeet(newZeet: Omit<IZeet, 'id'>) {
-    this.schwrzeets.push({
-      ...newZeet,
-      id: Date.now().toString(),
-    });
+    // TODO: 1 - Add Zeet
+    addDoc(collection(getFirestore(), 'zeets'), newZeet);
   }
 
   async onZeetLike(zeet: IZeet) {

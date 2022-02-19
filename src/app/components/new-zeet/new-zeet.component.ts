@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { formatISO } from 'date-fns';
 import { IZeet } from 'src/app/interfaces/zeet.interface';
-// TODO: uncomment this
-// import { User } from '@angular/fire/auth';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-new-zeet',
@@ -11,8 +10,7 @@ import { IZeet } from 'src/app/interfaces/zeet.interface';
 })
 export class NewZeetComponent implements OnInit {
   @Output() newZeet = new EventEmitter<Omit<IZeet, 'id'>>();
-  // TODO: uncomment this
-  // @Input() user!: User;
+  @Input() user!: User;
   zeetMessage = '';
   constructor() {}
 
@@ -32,19 +30,11 @@ export class NewZeetComponent implements OnInit {
       likedBy: [],
       commentedBy: [],
       createdAt: formatISO(new Date()),
-      // TODO: swap these
-      // by: {
-      //   id: this.user.uid,
-      //   name: this.user.displayName || this.user.email || '',
-      //   username: '',
-      //   profileURL: this.user.photoURL || '',
-      // },
       by: {
-        id: '',
-        name: '',
+        id: this.user.uid,
+        name: this.user.displayName || this.user.email || '',
         username: '',
-        profileURL:
-          'https://robohash.org/a3b8f07a68aed4366639cbc05521d06f?set=set3&bgset=&size=400x400',
+        profileURL: this.user.photoURL || '',
       },
     });
     this.zeetMessage = '';
