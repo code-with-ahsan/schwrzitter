@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "schwrzitter": {
+      "hosting": {
+        "schwrzitter": [
+          "schwrzitter"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "schwrzitter"
+  }
+}
