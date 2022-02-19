@@ -10,7 +10,10 @@ import { IZeet } from 'src/app/interfaces/zeet.interface';
 export class SchwrzeetComponent implements OnInit {
   @Input() zeet: IZeet | null = null;
   @Output() zeetLiked = new EventEmitter<IZeet>();
-  @Output() zeetCommented = new EventEmitter<IZeet>();
+  @Output() zeetCommented = new EventEmitter<{
+    zeet: IZeet;
+    comment: string;
+  }>();
   constructor() {}
 
   get zeetCreatedAt(): string {
@@ -18,6 +21,16 @@ export class SchwrzeetComponent implements OnInit {
       return '';
     }
     return formatDistance(parseISO(this.zeet?.createdAt), new Date());
+  }
+
+  commentOnZeet() {
+    const comment = prompt("What's your comment?");
+    if (comment && comment.trim().length && this.zeet) {
+      this.zeetCommented.emit({
+        zeet: this.zeet,
+        comment,
+      });
+    }
   }
 
   ngOnInit(): void {}

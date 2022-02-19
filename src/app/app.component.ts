@@ -64,7 +64,31 @@ export class AppComponent {
       });
   }
 
-  onZeetComment(zeet: IZeet) {
-    console.log(zeet);
+  async onZeetComment(event: { zeet: IZeet; comment: string }) {
+    const { zeet, comment } = event;
+    const user = await this.auth.currentUser;
+    if (!user) {
+      return;
+    }
+    const docRef = this.afs.doc(`zeets/${zeet.id}/comments/${user.uid}`);
+    const docExists = await docRef.ref.get().then((doc) => !!doc.exists);
+    if (docExists) {
+      zeet.commentedBy = zeet.commentedBy.filter((id) => id !== user.uid);
+      await docRef.delete();
+    } else {
+      zeet.commentedBy.push(user.uid);
+      await docRef.set({
+        id: user.uid,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        comment,
+      });
+    }
+    await this.afs
+      .collection(`zeets`)
+      .doc(zeet.id)
+      .update({
+        ...zeet,
+      });
   }
 }
