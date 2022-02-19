@@ -8,7 +8,7 @@ import { IZeet } from 'src/app/interfaces/zeet.interface';
   styleUrls: ['./schwrzeet.component.scss'],
 })
 export class SchwrzeetComponent implements OnInit {
-  @Input() zeet: IZeet | null = null;
+  @Input() zeet!: IZeet;
   @Output() zeetLiked = new EventEmitter<IZeet>();
   @Output() zeetCommented = new EventEmitter<{
     zeet: IZeet;
@@ -25,7 +25,7 @@ export class SchwrzeetComponent implements OnInit {
 
   commentOnZeet() {
     const comment = prompt("What's your comment?");
-    if (comment && comment.trim().length && this.zeet) {
+    if (comment && comment.trim().length) {
       this.zeetCommented.emit({
         zeet: this.zeet,
         comment,

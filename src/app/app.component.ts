@@ -64,6 +64,10 @@ export class AppComponent {
       });
   }
 
+  trackZeetsFn(_: any, zeet: IZeet) {
+    return zeet.id;
+  }
+
   async onZeetComment(event: { zeet: IZeet; comment: string }) {
     const { zeet, comment } = event;
     const user = await this.auth.currentUser;

@@ -11,7 +11,6 @@ import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-
 import { initializeApp } from 'firebase/app';
 
 initializeApp(environment.firebase);
