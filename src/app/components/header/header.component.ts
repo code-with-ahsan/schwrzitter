@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-header',
@@ -9,19 +7,11 @@ import firebase from 'firebase/compat/app';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
-  constructor(private auth: AngularFireAuth) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.auth.user.subscribe((user) => {
-      this.isLoggedIn = !!user;
-    });
-  }
+  ngOnInit(): void {}
 
-  login() {
-    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  }
+  login() {}
 
-  logout() {
-    this.auth.signOut();
-  }
+  logout() {}
 }

@@ -31,10 +31,11 @@ export class NewZeetComponent implements OnInit {
       commentedBy: [],
       createdAt: formatISO(new Date()),
       by: {
-        id: this.user.uid,
-        name: this.user.displayName || this.user.email || '',
+        id: '',
+        name: '',
         username: '',
-        profileURL: this.user.photoURL || '',
+        profileURL:
+          'https://robohash.org/a3b8f07a68aed4366639cbc05521d06f?set=set3&bgset=&size=400x400',
       },
     });
     this.zeetMessage = '';

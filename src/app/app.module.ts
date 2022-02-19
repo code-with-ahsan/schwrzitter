@@ -8,12 +8,6 @@ import { SchwrzeetComponent } from './components/schwrzeet/schwrzeet.component';
 import { NewZeetComponent } from './components/new-zeet/new-zeet.component';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { initializeApp } from 'firebase/app';
-
-initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
@@ -22,14 +16,7 @@ initializeApp(environment.firebase);
     SchwrzeetComponent,
     NewZeetComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
