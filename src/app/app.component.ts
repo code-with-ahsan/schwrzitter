@@ -1,8 +1,19 @@
 import { Component } from '@angular/core';
 import { IZeet } from './interfaces/zeet.interface';
-// TODO: // uncomment these
-// import { User, Auth, user } from '@angular/fire/auth';
-// import { Observable } from 'rxjs/internal/Observable';
+import { User, Auth, user } from '@angular/fire/auth';
+// TODO: uncomment these
+// import {
+//   collection,
+//   collectionChanges,
+//   addDoc,
+//   getFirestore,
+//   orderBy,
+//   query,
+//   CollectionReference,
+//   DocumentChange,
+// } from '@angular/fire/firestore';
+import { Observable } from 'rxjs/internal/Observable';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,23 +22,74 @@ import { IZeet } from './interfaces/zeet.interface';
 })
 export class AppComponent {
   title = 'schwrzitter';
-  // TODO: // uncomment these
-  // user$: Observable<User | null>;
+  user$: Observable<User | null>;
 
   schwrzeets: IZeet[] = [];
 
-  // TODO: // swap these
-  // constructor(auth: Auth) {
-  //   this.user$ = user(auth);
+  constructor(auth: Auth) {
+    this.user$ = user(auth);
+    // TODO: uncomment this
+    // this.getZeets();
+  }
+
+  // TODO: uncomment this
+  // async getZeets() {
+  //   const user = await this.getUser();
+  //   collectionChanges<IZeet>(
+  //     query<IZeet>(
+  //       collection(getFirestore(), 'zeets') as CollectionReference<IZeet>,
+  //       orderBy('createdAt', 'desc')
+  //     )
+  //   ).subscribe((zeets) => {
+  //     console.log(zeets);
+  //     zeets.map((snapshot) => {
+  //       this.onZeetSnapshot(snapshot, user);
+  //     });
+  //   });
   // }
 
-  constructor() {
+  // TODO: uncomment this
+  // onZeetSnapshot(change: DocumentChange<IZeet>, user: User | null) {
+  //   const data = change.doc.data() as IZeet;
+  //   switch (change.type) {
+  //     case 'added':
+  //       const zeet = {
+  //         ...data,
+  //         id: change.doc.id,
+  //         liked: !!user && !!data.likedBy.includes(user.uid),
+  //       };
+  //       this.schwrzeets.splice(change.newIndex, 0, zeet);
+  //       break;
+  //     case 'removed':
+  //       this.schwrzeets.splice(change.oldIndex, 1);
+  //       break;
+  //     case 'modified':
+  //       if (change.newIndex === change.oldIndex) {
+  //         this.schwrzeets[change.oldIndex] = {
+  //           ...data,
+  //           id: change.doc.id,
+  //           liked: !!user && !!data.likedBy.includes(user.uid),
+  //         };
+  //       } else {
+  //         this.schwrzeets.splice(change.oldIndex, 1);
+  //         this.schwrzeets.splice(change.newIndex, 0, {
+  //           ...data,
+  //           id: change.doc.id,
+  //           liked: !!user && !!data.likedBy.includes(user.uid),
+  //         });
+  //       }
+  //       break;
+  //   }
+  // }
+
+  async getUser(): Promise<User | null> {
+    const user = await this.user$.pipe(take(1)).toPromise();
+    return user || null;
   }
+
   addNewZeet(newZeet: Omit<IZeet, 'id'>) {
-    this.schwrzeets.push({
-      ...newZeet,
-      id: Date.now().toString(),
-    });
+    // TODO: uncomment this
+    // addDoc(collection(getFirestore(), 'zeets'), newZeet);
   }
 
   async onZeetLike(zeet: IZeet) {

@@ -1,8 +1,6 @@
 <form class="flex flex-col mb-2 p-[20px]" (ngSubmit)="onSubmit($event)">
   <div class="flex">
-    <!-- TODO: // swap these -->
-    <!-- <img class="w-10 h-10 mr-4 inline-block rounded-full shadow-lg" src="{{user.photoURL}}"> -->
-    <img class="w-10 h-10 mr-4 inline-block rounded-full shadow-lg" src="https://robohash.org/a3b8f07a68aed4366639cbc05521d06f?set=set3&bgset=&size=400x400">
+    <img class="w-10 h-10 mr-4 inline-block rounded-full shadow-lg" src="{{user.photoURL}}">
     <input name="message" [(ngModel)]="zeetMessage" class="flex-1 focus:outline-none" placeholder="What's happening!"/>
   </div>
   <div class="flex justify-end">
