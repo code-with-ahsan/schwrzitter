@@ -5,7 +5,7 @@
       <ng-container *ngIf="user$ | async as user">
         <app-new-zeet [user]="user" (newZeet)="addNewZeet($event)"></app-new-zeet>
       </ng-container>
-      <app-schwrzeet *ngFor="let zeet of schwrzeets" [zeet]="zeet"></app-schwrzeet>
+      <app-schwrzeet (zeetLiked)="onZeetLike($event)" (zeetCommented)="onZeetComment($event)" *ngFor="let zeet of schwrzeets" [zeet]="zeet"></app-schwrzeet>
     </div>
   </div>
 </div>

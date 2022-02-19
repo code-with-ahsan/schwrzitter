@@ -1,8 +1,8 @@
 export interface IZeet {
   id: string;
   content: string;
-  likes: number;
-  comments: number;
+  likedBy: string[];
+  commentedBy: string[];
   createdAt: string;
   by: {
     id: string;
@@ -10,4 +10,6 @@ export interface IZeet {
     username: string;
     profileURL: string;
   };
+  liked?: boolean;
+  commented?: boolean;
 }

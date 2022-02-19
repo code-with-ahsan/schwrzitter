@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { format, formatDistance, parseISO } from 'date-fns';
 import { IZeet } from 'src/app/interfaces/zeet.interface';
 
@@ -9,6 +9,8 @@ import { IZeet } from 'src/app/interfaces/zeet.interface';
 })
 export class SchwrzeetComponent implements OnInit {
   @Input() zeet: IZeet | null = null;
+  @Output() zeetLiked = new EventEmitter<IZeet>();
+  @Output() zeetCommented = new EventEmitter<IZeet>();
   constructor() {}
 
   get zeetCreatedAt(): string {
