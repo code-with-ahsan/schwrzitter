@@ -5,12 +5,11 @@ import {
   collection,
   collectionChanges,
   addDoc,
-  // TODO: uncomment these
-  // doc,
-  // getDoc,
-  // updateDoc,
-  // setDoc,
-  // deleteDoc,
+  doc,
+  getDoc,
+  updateDoc,
+  setDoc,
+  deleteDoc,
   getFirestore,
   orderBy,
   query,
@@ -98,28 +97,27 @@ export class AppComponent {
     if (!user) {
       return;
     }
-    // TODO: uncomment this
-    // const likeDocRef = doc(
-    //   getFirestore(),
-    //   `zeets/${zeet.id}/likes/${user.uid}`
-    // );
-    // const document = await getDoc(likeDocRef);
-    // const docExists = document.exists();
-    // if (docExists) {
-    //   zeet.likedBy = zeet.likedBy.filter((id) => id !== user.uid);
-    //   await deleteDoc(likeDocRef);
-    // } else {
-    //   zeet.likedBy.push(user.uid);
-    //   await setDoc(likeDocRef, {
-    //     id: user.uid,
-    //     displayName: user.displayName,
-    //     photoURL: user.photoURL,
-    //   });
-    // }
-    // const docRef = doc(getFirestore(), `zeets/${zeet.id}`);
-    // updateDoc(docRef, {
-    //   ...zeet,
-    // });
+    const likeDocRef = doc(
+      getFirestore(),
+      `zeets/${zeet.id}/likes/${user.uid}`
+    );
+    const document = await getDoc(likeDocRef);
+    const docExists = document.exists();
+    if (docExists) {
+      zeet.likedBy = zeet.likedBy.filter((id) => id !== user.uid);
+      await deleteDoc(likeDocRef);
+    } else {
+      zeet.likedBy.push(user.uid);
+      await setDoc(likeDocRef, {
+        id: user.uid,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      });
+    }
+    const docRef = doc(getFirestore(), `zeets/${zeet.id}`);
+    updateDoc(docRef, {
+      ...zeet,
+    });
   }
 
   async onZeetComment(event: { zeet: IZeet; comment: string }) {
