@@ -105,9 +105,11 @@ export class AppComponent {
     const docExists = document.exists();
     if (docExists) {
       zeet.likedBy = zeet.likedBy.filter((id) => id !== user.uid);
+      zeet.liked = false;
       await deleteDoc(likeDocRef);
     } else {
       zeet.likedBy.push(user.uid);
+      zeet.liked = true;
       await setDoc(likeDocRef, {
         id: user.uid,
         displayName: user.displayName,
@@ -115,8 +117,9 @@ export class AppComponent {
       });
     }
     const docRef = doc(getFirestore(), `zeets/${zeet.id}`);
+    const { liked, commented, ...updatedZeet } = zeet;
     updateDoc(docRef, {
-      ...zeet,
+      ...updatedZeet,
     });
   }
 
