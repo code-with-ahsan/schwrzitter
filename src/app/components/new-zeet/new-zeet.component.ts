@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { formatISO } from 'date-fns';
 import { IZeet } from 'src/app/interfaces/zeet.interface';
 
@@ -6,6 +8,8 @@ import { IZeet } from 'src/app/interfaces/zeet.interface';
   selector: 'app-new-zeet',
   templateUrl: './new-zeet.component.html',
   styleUrls: ['./new-zeet.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class NewZeetComponent implements OnInit {
   @Output() newZeet = new EventEmitter<Omit<IZeet, 'id'>>();
