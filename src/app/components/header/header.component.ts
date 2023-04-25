@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
 // TODO: uncomment these
-// import { Auth, user, getAuth } from '@angular/fire/auth';
-// import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+// import { Auth, user, getAuth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   // TODO: uncomment this
-  // constructor(private auth: Auth) {}
+  // auth = inject(Auth);
 
   ngOnInit(): void {
     // TODO: uncomment this
