@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { format, formatDistance, parseISO } from 'date-fns';
 import { IZeet } from 'src/app/interfaces/zeet.interface';
@@ -6,6 +7,8 @@ import { IZeet } from 'src/app/interfaces/zeet.interface';
   selector: 'app-schwrzeet',
   templateUrl: './schwrzeet.component.html',
   styleUrls: ['./schwrzeet.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class SchwrzeetComponent implements OnInit {
   @Input() zeet!: IZeet;
