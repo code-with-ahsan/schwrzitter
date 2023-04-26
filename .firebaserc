@@ -1,5 +1,4 @@
 {
-<<<<<<< Updated upstream
   "targets": {
     "schwrzitter": {
       "hosting": {
@@ -13,9 +12,3 @@
     "default": "schwrzitter"
   }
 }
-=======
-  "projects": {
-    "default": "schwrzitter"
-  }
-}
->>>>>>> Stashed changes
