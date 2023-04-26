@@ -1,5 +1,4 @@
 {
-<<<<<<< Updated upstream
   "hosting": {
     "target": "schwrzitter",
     "public": "dist/schwrzitter",
@@ -25,18 +24,6 @@
           }
         ]
       }
-=======
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "hosting": {
-    "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
->>>>>>> Stashed changes
     ],
     "rewrites": [
       {
@@ -45,8 +32,4 @@
       }
     ]
   }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
