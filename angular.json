@@ -110,11 +110,8 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {
-            "prerender": false,
-            "ssr": false,
-            "browserTarget": "schwrzitter:build:production",
-            "firebaseProject": "schwrzitter",
-            "firebaseHostingSite": "schwrzitter"
+            "version": 2,
+            "browserTarget": "schwrzitter:build:production"
           }
         }
       }
